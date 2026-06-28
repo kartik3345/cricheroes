@@ -11,6 +11,7 @@ export default function FullScorecardTab() {
     score: number, 
     wickets: number, 
     oversStr: string,
+    totalOvers: number,
     battingStats: Record<string, any>,
     bowlingStats: Record<string, any>,
     extras: { wd: number, nb: number },
@@ -21,7 +22,7 @@ export default function FullScorecardTab() {
       <div className={styles.inningsSection}>
         <div className={`${styles.header} ${headerClass}`}>
           <h3 className={styles.title}>{teamName} Innings</h3>
-          <span className={styles.score}>{score}/{wickets} <span>({oversStr} Ov)</span></span>
+          <span className={styles.score}>{score}/{wickets} <span>({oversStr} / {totalOvers}.0 Ov)</span></span>
         </div>
         
         {/* Batting */}
@@ -39,7 +40,7 @@ export default function FullScorecardTab() {
               </tr>
             </thead>
             <tbody>
-              {Object.values(battingStats).filter(s => s.status !== 'yet to bat' && s.balls > 0 || s.runs > 0).map((stats: any) => (
+              {Object.values(battingStats).filter(s => s.status !== 'yet to bat').map((stats: any) => (
                 <tr key={stats.name}>
                   <td className="player-col">
                     <span className="player-name-mini">{stats.name}</span>
@@ -114,6 +115,7 @@ export default function FullScorecardTab() {
         state.innings1Score,
         state.innings1Wickets,
         `${Math.floor(state.innings1Balls / 6)}.${state.innings1Balls % 6}`,
+        state.overs,
         state.innings1BattingStats,
         state.innings1BowlingStats,
         state.innings1Extras,
@@ -127,6 +129,7 @@ export default function FullScorecardTab() {
         state.score,
         state.wickets,
         `${Math.floor(state.balls / 6)}.${state.balls % 6}`,
+        state.overs,
         state.battingStats,
         state.bowlingStats,
         state.extras,
