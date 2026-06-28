@@ -67,7 +67,17 @@ export default function CreateMatchForm() {
     const { supabase } = await import('../../lib/supabase');
     const { data, error } = await supabase
       .from('matches')
-      .insert({ state: finalState })
+      .insert({ 
+        team_a_name: finalState.teamAName,
+        team_b_name: finalState.teamBName,
+        total_overs: finalState.overs,
+        venue: finalState.venue,
+        current_phase: finalState.phase,
+        current_innings: finalState.innings,
+        runs: finalState.score,
+        wickets: finalState.wickets,
+        state: finalState 
+      })
       .select('id')
       .single();
 

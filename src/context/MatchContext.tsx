@@ -96,7 +96,13 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
       const timeout = setTimeout(async () => {
         const { error } = await supabase
           .from('matches')
-          .update({ state })
+          .update({ 
+            current_phase: state.phase,
+            current_innings: state.innings,
+            runs: state.score,
+            wickets: state.wickets,
+            state 
+          })
           .eq('id', matchId);
           
         if (error) console.error('Failed to sync state:', error);
