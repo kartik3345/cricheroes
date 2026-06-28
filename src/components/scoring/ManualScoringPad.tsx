@@ -22,8 +22,9 @@ export default function ManualScoringPad({ onChangeBatsman, onChangeBowler }: Pr
     dispatch({ type: 'RECORD_BALL', payload: { ballType: type, runs: 0 } });
   };
 
-  const handleWicket = (wicketType: WicketType, dismissedBatsmanType?: 'strike' | 'nonstrike') => {
-    dispatch({ type: 'RECORD_BALL', payload: { ballType: 'w', runs: 0, wicketType, dismissedBatsmanType } });
+  const handleWicket = (wicketType: WicketType, dismissedBatsmanType: 'strike' | 'nonstrike' = 'strike', runsCompleted: number = 0) => {
+    dispatch({ type: 'RECORD_BALL', payload: { ballType: 'w', runs: runsCompleted, wicketType, dismissedBatsmanType } });
+    setShowWicketModal(false);
   };
 
   return (

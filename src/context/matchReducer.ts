@@ -315,10 +315,10 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
       let newStriker = striker;
       let newNonStriker = nonStriker;
       let rotateStrike = false;
-      if (runs % 2 !== 0 && !isWicket) rotateStrike = true;
+      if (runs % 2 !== 0 && (!isWicket || wicketType === 'Run Out')) rotateStrike = true;
       if (isLegal && newBalls % 6 === 0) rotateStrike = !rotateStrike; // Switch back if odd run on last ball
 
-      if (rotateStrike && !isWicket) {
+      if (rotateStrike && (!isWicket || wicketType === 'Run Out')) {
         newStriker = nonStriker;
         newNonStriker = striker;
         strikerStats.onStrike = false;
@@ -327,10 +327,20 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
       
       // Clear dismissed batsman
       if (isWicket) {
-        if (dismissedBatsmanType === 'nonstrike') {
-          newNonStriker = '';
+        if (rotateStrike) {
+          // They crossed. The original striker is now in newNonStriker.
+          if (dismissedBatsmanType === 'strike') {
+            newNonStriker = '';
+          } else {
+            newStriker = '';
+          }
         } else {
-          newStriker = '';
+          // Didn't cross.
+          if (dismissedBatsmanType === 'nonstrike') {
+            newNonStriker = '';
+          } else {
+            newStriker = '';
+          }
         }
       }
 
