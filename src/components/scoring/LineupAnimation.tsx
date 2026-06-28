@@ -10,9 +10,13 @@ export default function LineupAnimation() {
   useEffect(() => {
     if (!isAdmin) return;
     
-    // Hold the lineup animation for exactly 5 seconds, then move to setup
+    // Hold the lineup animation for exactly 5 seconds, then move back
     const timer = setTimeout(() => {
-      dispatch({ type: 'SET_PHASE', payload: 'setup' });
+      if (state.innings1Balls > 0 || state.innings2Balls > 0 || state.currentBowler) {
+        dispatch({ type: 'SET_PHASE', payload: 'playing' });
+      } else {
+        dispatch({ type: 'SET_PHASE', payload: 'setup' });
+      }
     }, 5000);
     
     return () => clearTimeout(timer);
