@@ -29,7 +29,7 @@ export default function LandingPage() {
         
         <footer className={styles.footer}>
           <div className={styles.footerContent}>
-            Built by Krish and Karthik
+            Built by Kartik and Krish
           </div>
           <div className={styles.copyright}>
             &copy; {new Date().getFullYear()} CricLover. All rights reserved.
