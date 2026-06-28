@@ -9,20 +9,13 @@ export default function LineupAnimation() {
   // Early return if state is null
   if (!state) return null;
 
-  // Run the auto-transition for both admin (syncs to DB) and viewer (local only)
-  useEffect(() => {
-    
-    // Hold the lineup animation for exactly 5 seconds, then move back
-    const timer = setTimeout(() => {
-      if (state.innings1Balls > 0 || state.innings2Balls > 0 || state.currentBowler) {
-        dispatch({ type: 'SET_PHASE', payload: 'playing' });
-      } else {
-        dispatch({ type: 'SET_PHASE', payload: 'setup' });
-      }
-    }, 5000);
-    
-    return () => clearTimeout(timer);
-  }, [isAdmin, dispatch, state.innings1Balls, state.innings2Balls, state.currentBowler]);
+  const handleClose = () => {
+    if (state.innings1Balls > 0 || state.innings2Balls > 0 || state.currentBowler) {
+      dispatch({ type: 'SET_PHASE', payload: 'playing' });
+    } else {
+      dispatch({ type: 'SET_PHASE', payload: 'setup' });
+    }
+  };
 
   const renderSquad = (teamName: string, squad: SquadPlayer[], teamClass: string) => {
     return (
@@ -53,6 +46,16 @@ export default function LineupAnimation() {
 
   return (
     <div className={styles.container}>
+      <button 
+        onClick={handleClose} 
+        className={styles.closeBtn}
+        aria-label="Close Lineup"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       {renderSquad(state.teamAName, state.squadA, styles.teamA)}
       <div className={styles.vsBadge}>VS</div>
       {renderSquad(state.teamBName, state.squadB, styles.teamB)}
