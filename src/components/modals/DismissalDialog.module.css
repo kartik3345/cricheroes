@@ -95,6 +95,21 @@
   box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
 }
 
+.selectedType {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.8) !important;
+  color: var(--accent-red) !important;
+}
+
+.detailsForm {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .actionGroup {
   display: flex;
   gap: var(--space-md);
