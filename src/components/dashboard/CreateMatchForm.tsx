@@ -135,14 +135,14 @@ export default function CreateMatchForm() {
           <div className={styles.modeToggle}>
             <button 
               type="button" 
-              className={`${styles.toggleBtn} ${matchType === 'team-wise' ? styles.active : ''}`}
+              className={matchType === 'team-wise' ? styles.modeBtnActive : styles.modeBtn}
               onClick={() => setMatchType('team-wise')}
             >
               Team-wise
             </button>
             <button 
               type="button" 
-              className={`${styles.toggleBtn} ${matchType === 'one-to-one' ? styles.active : ''}`}
+              className={matchType === 'one-to-one' ? styles.modeBtnActive : styles.modeBtn}
               onClick={() => setMatchType('one-to-one')}
             >
               One-to-One
