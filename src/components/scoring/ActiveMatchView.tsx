@@ -112,7 +112,7 @@ export default function ActiveMatchView() {
       </div>
 
       {/* Prompts for missing players */}
-      {needsBatsman && !showBatsmanModal && (
+      {isAdmin && needsBatsman && !showBatsmanModal && (
         <div className={styles.promptOverlay}>
           <div className={styles.promptBox}>
             <p>Select next batsman to continue.</p>
@@ -121,7 +121,7 @@ export default function ActiveMatchView() {
         </div>
       )}
 
-      {needsBowler && !showBowlerModal && (
+      {isAdmin && needsBowler && !showBowlerModal && (
         <div className={styles.promptOverlay}>
           <div className={styles.promptBox}>
             <p>Select next bowler for the new over.</p>
