@@ -1,0 +1,121 @@
+.controls {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  height: 100%;
+  justify-content: center;
+}
+
+.status {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.dotActive {
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulseDot 1.5s infinite;
+}
+
+.statusText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.btnRow {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btnPrimary {
+  background: var(--gradient-primary);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 245, 160, 0.2);
+}
+
+.btnPrimary:hover {
+  box-shadow: 0 6px 20px rgba(0, 245, 160, 0.4);
+}
+
+.btnWarning {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--accent-gold);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.btnWarning:hover {
+  background: rgba(251, 191, 36, 0.3);
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.actionRow {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.resetBtn:hover {
+  color: var(--accent-red);
+}
+
+body.light-theme .statusIndicator {
+  background: rgba(0, 0, 0, 0.05);
+}

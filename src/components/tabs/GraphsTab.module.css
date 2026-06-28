@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.toggleGroup {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.toggleBtn {
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.toggleBtn:hover {
+  color: var(--text-primary);
+}
+
+.toggleBtn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.canvasWrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.canvas {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+body.light-theme .toggleGroup {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .toggleBtn.active {
+  background: #fff;
+  color: #000;
+}
+
+body.light-theme .canvasWrapper {
+  background: rgba(255, 255, 255, 0.5);
+}

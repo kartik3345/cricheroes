@@ -1,0 +1,157 @@
+.header {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.mainScoreRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.teamLeft {
+  align-items: flex-start;
+}
+
+.teamRight {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.teamName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.scoreBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.score {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.scoreInactive {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.overs {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.oversInactive {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.yetToBat {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.vsBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin: 0 var(--space-md);
+}
+
+.statsRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.statGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.statValue {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+.statusBox {
+  text-align: center;
+}
+
+.statusGlow {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent-green);
+  text-shadow: 0 0 10px rgba(0, 245, 160, 0.5);
+  animation: pulseDot 2s infinite;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metaIcon { color: var(--text-secondary); }
+.metaIconGold { color: var(--accent-gold); }
+.metaIconGreen { color: var(--accent-green); }
+
+@media (max-width: 600px) {
+  .score { font-size: 2.5rem; }
+  .scoreInactive { font-size: 1.8rem; }
+  .teamName { font-size: 1rem; }
+  .vsBadge { width: 40px; height: 40px; font-size: 1rem; }
+}

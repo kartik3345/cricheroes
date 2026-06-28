@@ -1,0 +1,111 @@
+.container {
+  padding: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: var(--space-sm);
+}
+
+.activePartnership {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+}
+
+.playersRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.playerLeft, .playerRight {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.playerLeft {
+  align-items: flex-start;
+}
+
+.playerRight {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.score {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.score span {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.vsBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin: 0 var(--space-md);
+}
+
+.chartContainer {
+  width: 100%;
+}
+
+.barBackground {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  display: flex;
+  overflow: hidden;
+}
+
+.barP1 {
+  height: 100%;
+  background: var(--accent-cyan);
+  transition: width 0.3s ease;
+}
+
+.barP2 {
+  height: 100%;
+  background: var(--accent-green);
+  transition: width 0.3s ease;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: var(--space-xl);
+}
+
+body.light-theme .activePartnership {
+  background: rgba(0, 0, 0, 0.02);
+}

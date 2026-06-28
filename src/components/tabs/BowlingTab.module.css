@@ -1,0 +1,16 @@
+.activeRow {
+  background: rgba(167, 139, 250, 0.05);
+  border-left: 3px solid var(--accent-purple);
+}
+
+.currentBadge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(167, 139, 250, 0.2);
+  color: var(--accent-purple);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  margin-left: 8px;
+  vertical-align: middle;
+}

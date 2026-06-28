@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.inningsSection {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.headerGold {
+  background: rgba(251, 191, 36, 0.1);
+  border-bottom-color: rgba(251, 191, 36, 0.3);
+}
+.headerGold .title { color: var(--accent-gold); }
+
+.headerGreen {
+  background: rgba(0, 245, 160, 0.1);
+  border-bottom-color: rgba(0, 245, 160, 0.3);
+}
+.headerGreen .title { color: var(--accent-green); }
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.score {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.score span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.statusCol {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.extrasRow {
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--glass-border);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.fowSection {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.fowLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.fowList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fowItem {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+body.light-theme .inningsSection {
+  background: rgba(255, 255, 255, 0.5);
+}
+body.light-theme .fowItem {
+  background: rgba(0, 0, 0, 0.05);
+}
