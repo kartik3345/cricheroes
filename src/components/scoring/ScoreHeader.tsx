@@ -23,8 +23,8 @@ export default function ScoreHeader() {
 
   return (
     <div className={`glass-card ${styles.header}`} style={{ position: 'relative' }}>
-      {isAdmin && (
-        <div style={{ position: 'absolute', top: '8px', right: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+      <div style={{ position: 'absolute', top: '8px', right: '12px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+        {!isAdmin && (
           <button 
             onClick={() => dispatch({ type: 'SET_PHASE', payload: 'lineup' })}
             style={{ 
@@ -32,22 +32,27 @@ export default function ScoreHeader() {
               color: 'var(--accent-gold)', 
               border: '1px solid rgba(234, 179, 8, 0.5)',
               borderRadius: '4px',
-              padding: '2px 8px',
-              fontSize: '0.75rem',
+              padding: '2px 6px',
+              fontSize: '0.65rem',
               cursor: 'pointer',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
             }}
+            title="View Lineup"
           >
-            Broadcast Lineup
+            <IconSignal size={10} />
+            Lineup
           </button>
-          {matchCode && (
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span>Code:</span>
-              <strong style={{ color: 'var(--accent-gold)', letterSpacing: '2px', fontSize: '0.9rem' }}>{matchCode}</strong>
-            </div>
-          )}
-        </div>
-      )}
+        )}
+        {isAdmin && matchCode && (
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span>Code:</span>
+            <strong style={{ color: 'var(--accent-gold)', letterSpacing: '2px', fontSize: '0.85rem' }}>{matchCode}</strong>
+          </div>
+        )}
+      </div>
       <div className={styles.mainScoreRow}>
         
         <div className={`${styles.team} ${styles.teamLeft}`}>

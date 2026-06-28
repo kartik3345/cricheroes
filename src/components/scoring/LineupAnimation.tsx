@@ -9,9 +9,8 @@ export default function LineupAnimation() {
   // Early return if state is null
   if (!state) return null;
 
-  // We only run the auto-transition if this is the admin
+  // Run the auto-transition for both admin (syncs to DB) and viewer (local only)
   useEffect(() => {
-    if (!isAdmin) return;
     
     // Hold the lineup animation for exactly 5 seconds, then move back
     const timer = setTimeout(() => {
