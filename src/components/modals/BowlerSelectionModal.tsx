@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { createPortal } from 'react-dom';
 import { useMatch } from '../../context/MatchContext';
 import { IconX, IconBaseball } from '../icons/SvgIcons';
 import styles from './BowlerSelectionModal.module.css';
@@ -20,7 +21,7 @@ export default function BowlerSelectionModal({ isOpen, onClose }: Props) {
     onClose();
   };
 
-  return (
+  const dialogContent = (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>

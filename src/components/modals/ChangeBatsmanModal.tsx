@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useMatch } from '../../context/MatchContext';
 import { IconSwap, IconX } from '../icons/SvgIcons';
 import styles from './ChangeBatsmanModal.module.css';
@@ -44,7 +45,7 @@ export default function ChangeBatsmanModal({ isOpen, onClose }: Props) {
     onClose();
   };
 
-  return (
+  const dialogContent = (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
@@ -104,4 +105,6 @@ export default function ChangeBatsmanModal({ isOpen, onClose }: Props) {
       </div>
     </div>
   );
+
+  return createPortal(dialogContent, document.body);
 }

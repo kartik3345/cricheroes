@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { WicketType } from '../../types/cricket';
 import { IconWicket, IconX } from '../icons/SvgIcons';
 import styles from './DismissalDialog.module.css';
@@ -22,7 +23,7 @@ export default function DismissalDialog({ isOpen, onClose, onDismiss }: Props) {
     onClose();
   };
 
-  return (
+  const dialogContent = (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
@@ -50,4 +51,6 @@ export default function DismissalDialog({ isOpen, onClose, onDismiss }: Props) {
       </div>
     </div>
   );
+
+  return createPortal(dialogContent, document.body);
 }
