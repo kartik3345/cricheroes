@@ -81,11 +81,20 @@ export interface MatchState extends MatchConfig {
   isSpectator: boolean;
   innings: 1 | 2;
   
-  // Toss
+  // Toss Final Result
   toss: {
     winner: string;
     decision: 'bat' | 'bowl';
   } | null;
+
+  // Live Toss Animation State
+  tossState?: {
+    step: 'caller' | 'choice' | 'spinning' | 'result';
+    caller: string;
+    callerChoice: 'heads' | 'tails';
+    result: 'heads' | 'tails';
+    winner: string;
+  };
 
   // Teams sorted by batting order
   teamBattingFirst: string;
@@ -140,6 +149,7 @@ export interface MatchState extends MatchConfig {
 
 export type MatchAction =
   | { type: 'INIT_MATCH'; payload: MatchConfig & { teamBattingFirst: string } }
+  | { type: 'SYNC_TOSS_STATE'; payload: NonNullable<MatchState['tossState']> }
   | { type: 'SET_TOSS'; payload: { winner: string; decision: 'bat' | 'bowl'; teamBattingFirst: string } }
   | { type: 'SET_OPENERS'; payload: { striker: string; nonStriker: string } }
   | { type: 'SET_BOWLER'; payload: { bowler: string } }

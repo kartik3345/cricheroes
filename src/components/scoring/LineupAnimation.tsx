@@ -10,10 +10,10 @@ export default function LineupAnimation() {
   useEffect(() => {
     if (!isAdmin) return;
     
-    // Hold the lineup animation for exactly 4 seconds, then move to setup
+    // Hold the lineup animation for exactly 5 seconds, then move to setup
     const timer = setTimeout(() => {
       dispatch({ type: 'SET_PHASE', payload: 'setup' });
-    }, 4000);
+    }, 5000);
     
     return () => clearTimeout(timer);
   }, [isAdmin, dispatch]);

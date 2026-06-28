@@ -77,6 +77,9 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
         teamBattingFirst: state.teamBattingFirst
       });
 
+    case 'SYNC_TOSS_STATE':
+      return { ...state, tossState: action.payload };
+
     case 'SET_TOSS':
       return { ...state, toss: action.payload };
 
