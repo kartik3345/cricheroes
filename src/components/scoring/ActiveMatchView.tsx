@@ -17,7 +17,7 @@ import BowlerSelectionModal from '../modals/BowlerSelectionModal';
 import styles from './ActiveMatchView.module.css';
 
 export default function ActiveMatchView() {
-  const { state, dispatch } = useMatch();
+  const { state, dispatch, isAdmin } = useMatch();
   const [activeTab, setActiveTab] = useState('batting');
   const [showBatsmanModal, setShowBatsmanModal] = useState(false);
   const [showBowlerModal, setShowBowlerModal] = useState(false);
@@ -49,13 +49,23 @@ export default function ActiveMatchView() {
             <BallTracker />
           </div>
           <div className={styles.actionCol}>
-            {state.mode === 'manual' ? (
-              <ManualScoringPad 
-                onChangeBatsman={() => setShowBatsmanModal(true)} 
-                onChangeBowler={() => setShowBowlerModal(true)} 
-              />
+            {isAdmin ? (
+              state.mode === 'manual' ? (
+                <ManualScoringPad 
+                  onChangeBatsman={() => setShowBatsmanModal(true)} 
+                  onChangeBowler={() => setShowBowlerModal(true)} 
+                />
+              ) : (
+                <SimulationControls />
+              )
             ) : (
-              <SimulationControls />
+              <div className={`glass-card ${styles.viewerIndicator}`} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+                <div style={{ color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent-red)', display: 'inline-block', animation: 'pulse 2s infinite' }}></span>
+                  <span style={{ fontWeight: 'bold', letterSpacing: '1px' }}>LIVE MATCH</span>
+                </div>
+                <p style={{ color: 'var(--text-secondary)' }}>You are watching live updates. Scoring controls are hidden.</p>
+              </div>
             )}
           </div>
         </div>
@@ -67,12 +77,16 @@ export default function ActiveMatchView() {
           <p style={{ margin: '16px 0', fontSize: '1.2rem' }}>
             Target for {state.teamBattingFirst === state.teamAName ? state.teamBName : state.teamAName}: <strong>{state.score + 1}</strong>
           </p>
-          <button 
-            className={styles.startBtn} 
-            onClick={() => dispatch({ type: 'START_INNINGS_2' })}
-          >
-            Start Innings 2
-          </button>
+          {isAdmin ? (
+            <button 
+              className={styles.startBtn} 
+              onClick={() => dispatch({ type: 'START_INNINGS_2' })}
+            >
+              Start Innings 2
+            </button>
+          ) : (
+            <p style={{ color: 'var(--text-secondary)' }}>Waiting for admin to start second innings...</p>
+          )}
         </div>
       )}
 

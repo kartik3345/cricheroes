@@ -18,13 +18,13 @@ function PlayerChip({ player, isSelected, onClick }: { player: SquadPlayer, isSe
 }
 
 export default function InningsStartModal() {
-  const { state, dispatch } = useMatch();
+  const { state, dispatch, isAdmin } = useMatch();
   
   const [striker, setStriker] = useState<string>('');
   const [nonStriker, setNonStriker] = useState<string>('');
   const [bowler, setBowler] = useState<string>('');
 
-  if (!state || state.phase !== 'setup') return null;
+  if (!state || state.phase !== 'setup' || !isAdmin) return null;
 
   const battingSquad = state.innings === 1 ? state.squadBattingFirst : state.squadBowlingFirst;
   const bowlingSquad = state.innings === 1 ? state.squadBowlingFirst : state.squadBattingFirst;

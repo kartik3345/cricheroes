@@ -5,14 +5,14 @@ import { IconCoin } from '../icons/SvgIcons';
 import styles from './TossModal.module.css';
 
 export default function TossModal() {
-  const { state, dispatch } = useMatch();
+  const { state, dispatch, isAdmin } = useMatch();
   const [step, setStep] = useState<TossStep>('caller');
   const [caller, setCaller] = useState<string>('');
   const [callerChoice, setCallerChoice] = useState<TossChoice>('heads');
   const [result, setResult] = useState<TossChoice>('heads');
   const [winner, setWinner] = useState<string>('');
 
-  if (!state || state.phase !== 'toss') return null;
+  if (!state || state.phase !== 'toss' || !isAdmin) return null;
 
   const handleSelectCaller = (team: string) => {
     setCaller(team);

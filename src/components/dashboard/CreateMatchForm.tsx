@@ -38,13 +38,16 @@ export default function CreateMatchForm() {
   const availableForA = mates.filter(m => !squadB.find(p => p.name === m.name));
   const availableForB = mates.filter(m => !squadA.find(p => p.name === m.name));
 
-  const handleStart = (e: React.FormEvent) => {
+  const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!teamA || !teamB || squadA.length < 2 || squadB.length < 2) {
       alert('Please fill all fields and select at least 2 players per squad.');
       return;
     }
-    dispatch({
+
+    // 1. Generate initial match state locally
+    const { matchReducer } = await import('../../context/matchReducer');
+    const initialState = matchReducer(null as any, {
       type: 'INIT_MATCH',
       payload: {
         teamAName: teamA,
@@ -55,10 +58,27 @@ export default function CreateMatchForm() {
         mode,
         squadA,
         squadB,
-        teamBattingFirst: teamA // temporary, toss handles real assignment
+        teamBattingFirst: teamA 
       }
     });
-    dispatch({ type: 'SET_PHASE', payload: 'toss' });
+    const finalState = matchReducer(initialState, { type: 'SET_PHASE', payload: 'toss' });
+
+    // 2. Insert into Supabase
+    const { supabase } = await import('../../lib/supabase');
+    const { data, error } = await supabase
+      .from('matches')
+      .insert({ state: finalState })
+      .select('id')
+      .single();
+
+    if (error) {
+      console.error('Failed to create match in cloud:', error);
+      alert('Failed to create live match. Check connection.');
+      return;
+    }
+
+    // 3. Navigate to live app with Admin privileges
+    window.location.href = `/app?matchId=${data.id}&admin=true`;
   };
 
   return (
