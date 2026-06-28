@@ -63,6 +63,9 @@ export default function CreateMatchForm() {
     });
     const finalState = matchReducer(initialState, { type: 'SET_PHASE', payload: 'toss' });
 
+    // 1.5 Generate 6-digit match code
+    const matchCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+
     // 2. Insert into Supabase
     const { supabase } = await import('../../lib/supabase');
     const { data, error } = await supabase
@@ -76,6 +79,7 @@ export default function CreateMatchForm() {
         current_innings: finalState.innings,
         runs: finalState.score,
         wickets: finalState.wickets,
+        match_code: matchCode,
         state: finalState 
       })
       .select('id')

@@ -12,7 +12,7 @@ export default function JoinLiveForm() {
   const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (matchId.length < 5) {
-      setError('Invalid Match ID');
+      setError('Invalid Match Code');
       return;
     }
     
@@ -20,13 +20,20 @@ export default function JoinLiveForm() {
     setError('');
     
     try {
-      const res = await fetch(`https://kvdb.io/cricHeroesLive1/${matchId}`);
-      if (!res.ok) {
-        throw new Error('Match not found');
+      const { supabase } = await import('../../lib/supabase');
+      const { data, error } = await supabase
+        .from('matches')
+        .select('id')
+        .eq('match_code', matchId.toUpperCase().trim())
+        .single();
+        
+      if (error || !data) {
+        throw new Error('Match not found. Check the code.');
       }
-      const data = await res.json();
       
-      dispatch({ type: 'LOAD_REMOTE_MATCH', payload: data });
+      // Redirect to the match viewer page
+      window.location.href = `/app?matchId=${data.id}`;
+      
     } catch (err: any) {
       setError(err.message || 'Failed to connect');
     } finally {
@@ -44,14 +51,15 @@ export default function JoinLiveForm() {
       <form onSubmit={handleJoin} className={styles.form}>
         <input 
           type="text" 
+          placeholder="e.g. A7X9WQ" 
           value={matchId}
           onChange={e => setMatchId(e.target.value.toUpperCase())}
-          placeholder="Enter 6-Digit ID" 
           className={styles.input}
           maxLength={6}
+          required
         />
         <button type="submit" disabled={loading} className={styles.btn}>
-          {loading ? 'Connecting...' : 'Spectate'}
+          {loading ? 'Connecting...' : 'View Match'}
         </button>
       </form>
       {error && <div className={styles.error}>{error}</div>}

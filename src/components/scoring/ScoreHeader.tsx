@@ -4,7 +4,7 @@ import { IconMapPin, IconBolt, IconSignal } from '../icons/SvgIcons';
 import styles from './ScoreHeader.module.css';
 
 export default function ScoreHeader() {
-  const { state } = useMatch();
+  const { state, isAdmin, matchCode } = useMatch();
   
   if (!state) return null;
 
@@ -22,7 +22,13 @@ export default function ScoreHeader() {
   const rrr = target && ballsRemaining > 0 ? (runsNeeded! / (ballsRemaining / 6)).toFixed(2) : '-';
 
   return (
-    <div className={`glass-card ${styles.header}`}>
+    <div className={`glass-card ${styles.header}`} style={{ position: 'relative' }}>
+      {isAdmin && matchCode && (
+        <div style={{ position: 'absolute', top: '8px', right: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span>Code:</span>
+          <strong style={{ color: 'var(--accent-gold)', letterSpacing: '2px', fontSize: '0.9rem' }}>{matchCode}</strong>
+        </div>
+      )}
       <div className={styles.mainScoreRow}>
         
         <div className={`${styles.team} ${styles.teamLeft}`}>

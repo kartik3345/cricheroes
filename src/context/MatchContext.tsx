@@ -9,6 +9,7 @@ interface MatchContextType {
   dispatch: React.Dispatch<MatchAction>;
   isAdmin: boolean;
   matchId: string | null;
+  matchCode: string | null;
 }
 
 const MatchContext = createContext<MatchContextType | undefined>(undefined);
@@ -20,6 +21,7 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
 
   const [isAdmin, setIsAdmin] = useState(isAdminAuth);
   const [matchId, setMatchId] = useState<string | null>(matchIdSession);
+  const [matchCode, setMatchCode] = useState<string | null>(null);
 
   const [state, dispatch] = useReducer((s: MatchState | null, a: MatchAction) => {
     if (a.type === 'CLEAR_MATCH') return null;
@@ -54,12 +56,15 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
     const fetchMatch = async () => {
       const { data, error } = await supabase
         .from('matches')
-        .select('state')
+        .select('state, match_code')
         .eq('id', matchId)
         .single();
         
-      if (data && data.state) {
-        dispatch({ type: 'LOAD_REMOTE_MATCH', payload: data.state as MatchState });
+      if (data) {
+        if (data.match_code) setMatchCode(data.match_code);
+        if (data.state) {
+          dispatch({ type: 'LOAD_REMOTE_MATCH', payload: data.state as MatchState });
+        }
       } else if (error) {
         console.error('Failed to fetch match:', error);
       }
@@ -112,7 +117,7 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
   }, [state, isAdmin, matchId, setSavedState]);
 
   return (
-    <MatchContext.Provider value={{ state, dispatch, isAdmin, matchId }}>
+    <MatchContext.Provider value={{ state, dispatch, isAdmin, matchId, matchCode }}>
       {children}
     </MatchContext.Provider>
   );
