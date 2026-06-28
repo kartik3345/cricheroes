@@ -1,7 +1,13 @@
 // ==========================================
 // Canvas Charts — Pure Drawing Functions
 // ==========================================
-import type { OverHistoryEntry, FallOfWicket } from '../types/cricket';
+import { 
+  BatsmanStats, 
+  BowlerStats, 
+  OverSummary,
+  FowEntry 
+} from '../types/cricket';
+import type { OverHistoryEntry } from '../types/cricket';
 
 interface ChartTheme {
   gridColor: string;
@@ -41,7 +47,7 @@ function plotWormLine(
   w: number,
   h: number,
   color: string,
-  wickets: FallOfWicket[]
+  wickets: FowEntry[]
 ): void {
   if (data.length === 0) return;
   const plotW = w - PADDING.left - PADDING.right;
@@ -115,8 +121,8 @@ function drawLegendInternal(
 export interface WormChartData {
   innings1Cumulative: number[];
   innings2Cumulative: number[];
-  innings1Fow: FallOfWicket[];
-  innings2Fow: FallOfWicket[];
+  innings1Fow: FowEntry[];
+  innings2Fow: FowEntry[];
   maxOvers: number;
   teamAName: string;
   teamBName: string;
@@ -181,8 +187,8 @@ export function drawWormChart(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasE
 }
 
 export interface ManhattanChartData {
-  innings1OversHistory: OverHistoryEntry[];
-  innings2OversHistory: OverHistoryEntry[];
+  innings1OversHistory: OverSummary[];
+  innings2OversHistory: OverSummary[];
   maxOvers: number;
   teamAName: string;
   teamBName: string;

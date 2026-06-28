@@ -134,6 +134,8 @@ export function calculateMatchAwards(
         runsConceded: 0,
         overs: 0,
         score: 0,
+        points: 0,
+        team: ''
       };
     }
     playerPerformance[b.name].runs = b.runs;
@@ -152,6 +154,8 @@ export function calculateMatchAwards(
         runsConceded: 0,
         overs: 0,
         score: 0,
+        points: 0,
+        team: ''
       };
     }
     playerPerformance[b.name].wickets = b.wickets;

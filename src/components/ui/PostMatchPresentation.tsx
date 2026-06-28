@@ -34,7 +34,7 @@ export default function PostMatchPresentation({ state }: Props) {
               <span>Player of the Match</span>
             </div>
             <div className={styles.playerInfo}>
-              <Avatar photo={awards.potmPlayer.photo} name={awards.potmPlayer.name} />
+              <Avatar photo={awards.potmPlayer.photo || ''} name={awards.potmPlayer.name} />
               <div className={styles.playerName}>{awards.potmPlayer.name}</div>
               <div className={styles.playerScore}>{awards.potmPlayer.score.toFixed(1)} pts</div>
             </div>
@@ -53,7 +53,7 @@ export default function PostMatchPresentation({ state }: Props) {
               <span>Best Batsman</span>
             </div>
             <div className={styles.playerInfo}>
-              <Avatar photo={awards.bestBatsman.photo} name={awards.bestBatsman.name} />
+              <Avatar photo={awards.bestBatsman.photo || ''} name={awards.bestBatsman.name} />
               <div className={styles.playerName}>{awards.bestBatsman.name}</div>
             </div>
             <div className={styles.statsRow}>
@@ -71,7 +71,7 @@ export default function PostMatchPresentation({ state }: Props) {
               <span>Best Bowler</span>
             </div>
             <div className={styles.playerInfo}>
-              <Avatar photo={awards.bestBowler.photo} name={awards.bestBowler.name} />
+              <Avatar photo={awards.bestBowler.photo || ''} name={awards.bestBowler.name} />
               <div className={styles.playerName}>{awards.bestBowler.name}</div>
             </div>
             <div className={styles.statsRow}>

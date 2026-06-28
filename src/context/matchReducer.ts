@@ -45,6 +45,16 @@ export function createInitialMatchState(config: MatchConfig & { teamBattingFirst
     innings1Commentary: [],
     innings1OversHistory: [],
     innings1Cumulative: [],
+    innings2Score: 0,
+    innings2Wickets: 0,
+    innings2Balls: 0,
+    innings2BattingStats: {},
+    innings2BowlingStats: {},
+    innings2Extras: { b: 0, lb: 0, wd: 0, nb: 0, total: 0 },
+    innings2Fow: [],
+    innings2Commentary: [],
+    innings2OversHistory: [],
+    innings2Cumulative: [],
     isCompleted: false,
     isSpectator: false,
     statusText: 'Innings 1 in progress',
@@ -70,6 +80,7 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
         teamBName: state.teamBName,
         overs: state.overs,
         mode: state.mode,
+        matchType: state.matchType,
         venue: state.venue,
         powerplayOvers: state.powerplayOvers,
         squadA: state.squadA,
@@ -105,29 +116,25 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
 
     case 'SET_BOWLER': {
       const { bowler } = action.payload;
-      if (!state.bowlingStats[bowler]) {
-        return {
-          ...state,
-          currentBowler: bowler,
-          bowlingStats: {
-            ...state.bowlingStats,
-            [bowler]: { name: bowler, photo: '', overs: 0, balls: 0, maidens: 0, runs: 0, wickets: 0, dotBalls: 0, currentOverRuns: 0, overBallsLog: [] }
-          }
-        };
-      }
-      return { ...state, currentBowler: bowler };
+      return {
+        ...state,
+        currentBowler: bowler,
+        bowlingStats: {
+          ...state.bowlingStats,
+          [bowler]: state.bowlingStats[bowler] || { name: bowler, photo: '', overs: 0, balls: 0, maidens: 0, runs: 0, wickets: 0, dotBalls: 0, currentOverRuns: 0, overBallsLog: [] }
+        }
+      };
     }
 
     case 'SELECT_NEW_BATSMAN': {
-      const { name, role } = action.payload;
-      const isStrike = role === 'strike';
+      const { name, isStrike } = action.payload;
       return {
         ...state,
         currentBatsmanStrike: isStrike ? name : state.currentBatsmanStrike,
-        currentBatsmanNonStrike: isStrike ? state.currentBatsmanNonStrike : name,
+        currentBatsmanNonStrike: !isStrike ? name : state.currentBatsmanNonStrike,
         battingStats: {
           ...state.battingStats,
-          [name]: { name, photo: '', runs: 0, balls: 0, fours: 0, sixes: 0, status: 'not out', onStrike: isStrike }
+          [name]: state.battingStats[name] || { name, photo: '', runs: 0, balls: 0, fours: 0, sixes: 0, status: 'not out', onStrike: isStrike }
         }
       };
     }

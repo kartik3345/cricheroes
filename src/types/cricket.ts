@@ -5,8 +5,38 @@ export type MatchPhase = 'setup' | 'toss' | 'lineup' | 'playing' | 'innings_brea
 export type BallType = 'run' | 'w' | 'wd' | 'nb' | 'lb' | 'b';
 export type GraphType = 'worm' | 'manhattan';
 export type WicketType = 'Bowled' | 'Caught' | 'LBW' | 'Run Out' | 'Stumped' | 'Hit Wicket' | 'Retired Hurt';
+export type TossStep = 'caller' | 'choice' | 'spinning' | 'result';
+export type TossChoice = 'heads' | 'tails';
+export type TossElection = 'bat' | 'bowl';
+export type ToastType = 'success' | 'error' | 'info' | 'warning' | 'four' | 'six' | 'wicket';
 
-// ---------- Interfaces ----------
+
+
+export interface PlayerPerformance {
+  name: string;
+  photo?: string;
+  runs: number;
+  balls: number;
+  wickets: number;
+  overs: number;
+  runsConceded: number;
+  score: number;
+  points: number;
+  team: string;
+}
+
+export interface MatchAwards {
+  potmPlayer: PlayerPerformance | null;
+  bestBatsman: PlayerPerformance | null;
+  bestBowler: PlayerPerformance | null;
+}
+
+export interface OverSummary {
+  overNum: number;
+  runs: number;
+  wickets: number;
+}
+
 export interface SquadPlayer {
   name: string;
   role: PlayerRole;
@@ -42,7 +72,7 @@ export interface BowlerStats {
   balls: number;
   runs: number;
   wickets: number;
-  maidenOvers: number;
+  maidens: number;
   dotBalls: number;
   currentOverRuns: number;
   overBallsLog: OverHistoryEntry[];
@@ -125,7 +155,7 @@ export interface MatchState extends MatchConfig {
   
   fow: FowEntry[];
   commentary: CommentaryEntry[];
-  oversHistory: number[]; 
+  oversHistory: OverSummary[]; 
   cumulativeHistory: number[]; 
 
   // Innings 1 Snapshot
@@ -137,8 +167,20 @@ export interface MatchState extends MatchConfig {
   innings1Extras: { b: number; lb: number; wd: number; nb: number; total: number };
   innings1Fow: FowEntry[];
   innings1Commentary: CommentaryEntry[];
-  innings1OversHistory: number[];
+  innings1OversHistory: OverSummary[];
   innings1Cumulative: number[];
+
+  // Innings 2 Snapshot
+  innings2Score: number;
+  innings2Wickets: number;
+  innings2Balls: number;
+  innings2BattingStats: Record<string, BatsmanStats>;
+  innings2BowlingStats: Record<string, BowlerStats>;
+  innings2Extras: { b: number; lb: number; wd: number; nb: number; total: number };
+  innings2Fow: FowEntry[];
+  innings2Commentary: CommentaryEntry[];
+  innings2OversHistory: OverSummary[];
+  innings2Cumulative: number[];
 
   // Match Status
   isCompleted: boolean;
@@ -159,12 +201,13 @@ export type MatchAction =
   | { type: 'START_INNINGS_2' }
   | { type: 'SET_PHASE'; payload: MatchPhase }
   | { type: 'SET_GRAPH'; payload: GraphType }
-  | { type: 'RESET_MATCH'; payload: MatchConfig }
+  | { type: 'RESET_MATCH' }
   | { type: 'LOAD_MATCH'; payload: MatchState }
   | { type: 'LOAD_REMOTE_MATCH'; payload: MatchState }
   | { type: 'CLEAR_MATCH' };
 
 export type MatesAction =
   | { type: 'ADD_MATE'; payload: Mate }
-  | { type: 'REMOVE_MATE'; payload: string }
+  | { type: 'DELETE_MATE'; payload: string }
+  | { type: 'UPDATE_MATE'; payload: Mate }
   | { type: 'LOAD_MATES'; payload: Mate[] };
