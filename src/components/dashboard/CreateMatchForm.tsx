@@ -12,9 +12,10 @@ export default function CreateMatchForm() {
   const [teamA, setTeamA] = useState('');
   const [teamB, setTeamB] = useState('');
   const [overs, setOvers] = useState<number>(20);
-  const [venue, setVenue] = useState('');
-  const [powerplay, setPowerplay] = useState<number>(6);
-  const mode: ScoringMode = 'manual';
+  const [venue, setVenue] = useState('Eden Gardens');
+  const [powerplay, setPowerplay] = useState(6);
+  const [mode] = useState<ScoringMode>('manual'); // Forced to manual as auto simulation was removed from UI
+  const [matchType, setMatchType] = useState<'team-wise' | 'one-to-one'>('team-wise');
 
   const [squadA, setSquadA] = useState<SquadPlayer[]>([]);
   const [squadB, setSquadB] = useState<SquadPlayer[]>([]);
@@ -56,6 +57,7 @@ export default function CreateMatchForm() {
         venue,
         powerplayOvers: powerplay,
         mode,
+        matchType,
         squadA,
         squadB,
         teamBattingFirst: teamA 
@@ -128,8 +130,28 @@ export default function CreateMatchForm() {
           <input required value={venue} onChange={e => setVenue(e.target.value)} placeholder="e.g. Wankhede Stadium" />
         </div>
 
-        {/* Scoring Mode removed, forced to Manual */}
-
+        <div className={styles.formGroup}>
+          <label>Match Type</label>
+          <div className={styles.modeToggle}>
+            <button 
+              type="button" 
+              className={`${styles.toggleBtn} ${matchType === 'team-wise' ? styles.active : ''}`}
+              onClick={() => setMatchType('team-wise')}
+            >
+              Team-wise
+            </button>
+            <button 
+              type="button" 
+              className={`${styles.toggleBtn} ${matchType === 'one-to-one' ? styles.active : ''}`}
+              onClick={() => setMatchType('one-to-one')}
+            >
+              One-to-One
+            </button>
+          </div>
+          <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+            {matchType === 'team-wise' ? 'Standard rules: All-out when N-1 wickets fall.' : 'Last man standing: All-out when N wickets fall.'}
+          </p>
+        </div>
         <SquadSelector 
           label={`Select Squad for ${teamA || 'Team A'}`} 
           mates={availableForA} 

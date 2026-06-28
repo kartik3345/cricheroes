@@ -6,6 +6,8 @@ export function createInitialMatchState(config: MatchConfig & { teamBattingFirst
   const squadBowlingFirst = config.teamBattingFirst === config.teamAName ? config.squadB : config.squadA;
 
   return {
+    ...config,
+    matchType: config.matchType || 'team-wise',
     syncId: '',
     teamAName: config.teamAName,
     teamBName: config.teamBName,
@@ -315,7 +317,9 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
       let isCompleted = false;
       let statusText = state.statusText;
       
-      const allOut = newWickets >= (state.innings === 1 ? state.squadBattingFirst.length - 1 : state.squadBowlingFirst.length - 1) || newWickets >= 10;
+      const currentSquadSize = state.innings === 1 ? state.squadBattingFirst.length : state.squadBowlingFirst.length;
+      const allOutLimit = state.matchType === 'one-to-one' ? currentSquadSize : Math.max(1, currentSquadSize - 1);
+      const allOut = newWickets >= allOutLimit || newWickets >= 10;
       const inningsFinished = allOut || newBalls >= maxBalls;
 
       if (state.innings === 2) {

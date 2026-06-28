@@ -43,10 +43,8 @@ export default function TossModal() {
       type: 'SET_TOSS',
       payload: { step: 'electionResult', caller, callerChoice, result, winner, loser, election }
     });
-    
-    // We update batting first by re-initializing or setting phase
-    // For simplicity, we just set phase to setup which will trigger InningsStartModal
-    dispatch({ type: 'SET_PHASE', payload: 'setup' });
+    // Transition to the new lineup phase
+    dispatch({ type: 'SET_PHASE', payload: 'lineup' });
   };
 
   return (

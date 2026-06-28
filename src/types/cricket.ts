@@ -1,7 +1,7 @@
 // ---------- Enums ----------
 export type PlayerRole = 'batsman' | 'bowler' | 'all-rounder' | 'wicket-keeper';
 export type ScoringMode = 'auto' | 'manual';
-export type MatchPhase = 'setup' | 'toss' | 'playing' | 'innings_break' | 'completed';
+export type MatchPhase = 'setup' | 'toss' | 'lineup' | 'playing' | 'innings_break' | 'completed';
 export type BallType = 'run' | 'w' | 'wd' | 'nb' | 'lb' | 'b';
 export type GraphType = 'worm' | 'manhattan';
 export type WicketType = 'Bowled' | 'Caught' | 'LBW' | 'Run Out' | 'Stumped' | 'Hit Wicket' | 'Retired Hurt';
@@ -73,6 +73,7 @@ export interface MatchConfig {
   powerplayOvers: number;
   venue: string;
   mode: ScoringMode;
+  matchType: 'team-wise' | 'one-to-one';
 }
 
 export interface MatchState extends MatchConfig {

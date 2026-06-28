@@ -14,6 +14,7 @@ import FullScorecardTab from '../tabs/FullScorecardTab';
 import PostMatchPresentation from '../ui/PostMatchPresentation';
 import ChangeBatsmanModal from '../modals/ChangeBatsmanModal';
 import BowlerSelectionModal from '../modals/BowlerSelectionModal';
+import LineupAnimation from './LineupAnimation';
 import styles from './ActiveMatchView.module.css';
 
 export default function ActiveMatchView() {
@@ -23,6 +24,7 @@ export default function ActiveMatchView() {
   const [showBowlerModal, setShowBowlerModal] = useState(false);
 
   if (!state) return null;
+  if (state.phase === 'lineup') return <LineupAnimation />;
 
   // Check if we need to prompt for next batsman (wicket fell, not end of innings)
   // Or end of over
