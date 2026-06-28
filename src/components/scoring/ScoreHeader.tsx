@@ -4,7 +4,7 @@ import { IconMapPin, IconBolt, IconSignal } from '../icons/SvgIcons';
 import styles from './ScoreHeader.module.css';
 
 export default function ScoreHeader() {
-  const { state, isAdmin, matchCode } = useMatch();
+  const { state, dispatch, isAdmin, matchCode } = useMatch();
   
   if (!state) return null;
 

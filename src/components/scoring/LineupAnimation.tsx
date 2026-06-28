@@ -6,6 +6,9 @@ import { SquadPlayer } from '../../types/cricket';
 export default function LineupAnimation() {
   const { state, dispatch, isAdmin } = useMatch();
   
+  // Early return if state is null
+  if (!state) return null;
+
   // We only run the auto-transition if this is the admin
   useEffect(() => {
     if (!isAdmin) return;
@@ -20,9 +23,7 @@ export default function LineupAnimation() {
     }, 5000);
     
     return () => clearTimeout(timer);
-  }, [isAdmin, dispatch]);
-
-  if (!state) return null;
+  }, [isAdmin, dispatch, state.innings1Balls, state.innings2Balls, state.currentBowler]);
 
   const renderSquad = (teamName: string, squad: SquadPlayer[], teamClass: string) => {
     return (
