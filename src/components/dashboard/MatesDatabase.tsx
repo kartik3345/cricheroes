@@ -13,6 +13,7 @@ export default function MatesDatabase() {
   const [role, setRole] = useState<PlayerRole>('batsman');
   const [photo, setPhoto] = useState('');
   const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,12 +26,48 @@ export default function MatesDatabase() {
     setPhoto('');
   };
 
+  const uploadToSupabase = async (base64String: string) => {
+    try {
+      setIsUploading(true);
+      const { supabase } = await import('../../lib/supabase');
+      
+      // Convert base64 to Blob
+      const byteString = atob(base64String.split(',')[1]);
+      const mimeString = base64String.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      
+      const fileName = `player_${Date.now()}.jpg`;
+      const { data, error } = await supabase.storage
+        .from('Player_name')
+        .upload(fileName, blob, { contentType: 'image/jpeg' });
+        
+      if (error) throw error;
+      
+      const { data: publicData } = supabase.storage
+        .from('Player_name')
+        .getPublicUrl(fileName);
+        
+      setPhoto(publicData.publicUrl);
+    } catch (err) {
+      console.error('Failed to upload to Supabase:', err);
+      alert('Failed to upload photo. Check your Supabase Storage policies!');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       try {
         const base64 = await resizeAndCompressImage(file);
-        setPhoto(base64);
+        setPhoto(base64); // Temporary local preview
+        await uploadToSupabase(base64);
       } catch (err) {
         console.error('Image compression failed', err);
       }
@@ -85,7 +122,9 @@ export default function MatesDatabase() {
             <option value="all-rounder">All Rounder</option>
             <option value="wicket-keeper">Wicket Keeper</option>
           </select>
-          <button type="submit" className={styles.addBtn}>Add Mate</button>
+          <button type="submit" className={styles.addBtn} disabled={isUploading}>
+            {isUploading ? 'Uploading Photo...' : 'Add Mate'}
+          </button>
         </div>
       </form>
 
@@ -117,7 +156,10 @@ export default function MatesDatabase() {
       <CameraModal 
         isOpen={isCameraOpen} 
         onClose={() => setIsCameraOpen(false)}
-        onCapture={setPhoto}
+        onCapture={async (base64) => {
+          setPhoto(base64); // temporary local preview
+          await uploadToSupabase(base64);
+        }}
       />
     </div>
   );
