@@ -92,7 +92,15 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
       return { ...state, tossState: action.payload };
 
     case 'SET_TOSS':
-      return { ...state, toss: action.payload };
+      return { 
+        ...state, 
+        toss: {
+          winner: action.payload.winner,
+          decision: action.payload.decision
+        },
+        teamBattingFirst: action.payload.teamBattingFirst,
+        teamBowlingFirst: action.payload.teamBattingFirst === state.teamAName ? state.teamBName : state.teamAName
+      };
 
     case 'SET_PHASE':
       return { ...state, phase: action.payload };
