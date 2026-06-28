@@ -209,6 +209,11 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
 
       // --- Bowling Stats ---
       const bowlerStats = { ...state.bowlingStats[bowler] };
+      // Fallback for older matches
+      if (!bowlerStats.overBallsLog) bowlerStats.overBallsLog = [];
+      if (bowlerStats.dotBalls === undefined) bowlerStats.dotBalls = 0;
+      if (bowlerStats.currentOverRuns === undefined) bowlerStats.currentOverRuns = 0;
+
       bowlerStats.runs += runs + (isExtra ? 1 : 0);
       if (isLegal) {
         bowlerStats.balls += 1;
