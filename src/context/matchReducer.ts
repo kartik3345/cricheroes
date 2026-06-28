@@ -91,7 +91,8 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
     case 'SYNC_TOSS_STATE':
       return { ...state, tossState: action.payload };
 
-    case 'SET_TOSS':
+    case 'SET_TOSS': {
+      const isTeamABatting = action.payload.teamBattingFirst === state.teamAName;
       return { 
         ...state, 
         toss: {
@@ -99,8 +100,11 @@ export function matchReducer(state: MatchState, action: MatchAction): MatchState
           decision: action.payload.decision
         },
         teamBattingFirst: action.payload.teamBattingFirst,
-        teamBowlingFirst: action.payload.teamBattingFirst === state.teamAName ? state.teamBName : state.teamAName
+        teamBowlingFirst: isTeamABatting ? state.teamBName : state.teamAName,
+        squadBattingFirst: isTeamABatting ? state.squadA : state.squadB,
+        squadBowlingFirst: isTeamABatting ? state.squadB : state.squadA
       };
+    }
 
     case 'SET_PHASE':
       return { ...state, phase: action.payload };
