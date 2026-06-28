@@ -70,4 +70,6 @@ export default function BowlerSelectionModal({ isOpen, onClose }: Props) {
       </div>
     </div>
   );
+
+  return createPortal(dialogContent, document.body);
 }
