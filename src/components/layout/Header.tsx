@@ -35,7 +35,7 @@ export default function Header() {
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
           <IconCricketBall className={styles.logoIcon} />
-          <span className={styles.logoText}>CricHeroes</span>
+          <span className={styles.logoText}>CricLover</span>
         </Link>
         
         <div className={styles.controls}>

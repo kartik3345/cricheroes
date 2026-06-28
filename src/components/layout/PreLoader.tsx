@@ -18,7 +18,7 @@ export default function PreLoader() {
       <div className={styles.spinner}>
         <div className={styles.spinnerInner}></div>
       </div>
-      <h2 className={styles.title}>CricHeroes Live</h2>
+      <h2 className={styles.title}>CricLover</h2>
     </div>
   );
 }

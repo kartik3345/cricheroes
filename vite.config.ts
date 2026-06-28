@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'CricHeroes Live',
-        short_name: 'CricHeroes',
-        description: 'Premium Cricket Scoring Dashboard',
+        name: 'CricLover',
+        short_name: 'CricLover',
+        description: 'Premium Cricket Scoring Application',
         theme_color: '#0A0A0A',
         background_color: '#0A0A0A',
         display: 'standalone',

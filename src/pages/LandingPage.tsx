@@ -8,7 +8,7 @@ import styles from './LandingPage.module.css';
 
 export default function LandingPage() {
   useEffect(() => {
-    document.title = 'CricHeroes Live | Premium Cricket Scoring';
+    document.title = 'CricLover | Premium Cricket Scoring';
   }, []);
 
   return (
@@ -19,7 +19,7 @@ export default function LandingPage() {
         <header className={styles.topNav}>
           <div className={styles.logo}>
             <IconCricketBall className={styles.logoIcon} />
-            <span className={styles.logoText}>CricHeroes</span>
+            <span className={styles.logoText}>CricLover</span>
           </div>
         </header>
 
@@ -29,10 +29,10 @@ export default function LandingPage() {
         
         <footer className={styles.footer}>
           <div className={styles.footerContent}>
-            Built with <IconCricketBall size={16} className={styles.footerIcon} /> by CricHeroes Team
+            Built by Krish and Karthik
           </div>
           <div className={styles.copyright}>
-            © {new Date().getFullYear()} CricHeroes Live. All rights reserved.
+            &copy; {new Date().getFullYear()} CricLover. All rights reserved.
           </div>
         </footer>
       </main>
