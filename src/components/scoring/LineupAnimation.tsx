@@ -46,19 +46,20 @@ export default function LineupAnimation() {
 
   return (
     <div className={styles.container}>
+      {renderSquad(state.teamAName, state.squadA, styles.teamA)}
+      <div className={styles.vsBadge}>VS</div>
+      {renderSquad(state.teamBName, state.squadB, styles.teamB)}
+      
       <button 
         onClick={handleClose} 
         className={styles.closeBtn}
-        aria-label="Close Lineup"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
+        Close Lineup
       </button>
-      {renderSquad(state.teamAName, state.squadA, styles.teamA)}
-      <div className={styles.vsBadge}>VS</div>
-      {renderSquad(state.teamBName, state.squadB, styles.teamB)}
     </div>
   );
 }
