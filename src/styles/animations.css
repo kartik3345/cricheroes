@@ -195,13 +195,4 @@
   }
 }
 
-/* Preloader spinner */
-@keyframes preloaderSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes preloaderFade {
-  0% { opacity: 1; }
-  100% { opacity: 0; pointer-events: none; }
-}
+/* Preloader animations removed — now handled via JS state transitions */

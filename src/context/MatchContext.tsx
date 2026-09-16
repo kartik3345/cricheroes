@@ -3,6 +3,7 @@ import { MatchAction, MatchState } from '../types/cricket';
 import { matchReducer } from './matchReducer';
 import { supabase } from '../lib/supabase';
 import { useSessionStorage } from '../hooks/useSessionStorage';
+import { saveMatchToRecents } from '../hooks/useRecentMatches';
 
 interface MatchContextType {
   state: MatchState | null;
@@ -95,6 +96,11 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
   // Sync to local storage and Supabase whenever state changes (if Admin)
   useEffect(() => {
     setSavedState(state);
+
+    // Auto-save completed matches to recent matches history
+    if (state && state.isCompleted) {
+      saveMatchToRecents(state);
+    }
     
     if (isAdmin && matchId && state) {
       // Debounce slightly to prevent spamming the database

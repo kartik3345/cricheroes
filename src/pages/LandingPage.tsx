@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ParticleCanvas from '../components/landing/ParticleCanvas';
 import HeroSection from '../components/landing/HeroSection';
+import RecentMatches from '../components/landing/RecentMatches';
 import StatsBar from '../components/landing/StatsBar';
 import FeaturesGrid from '../components/landing/FeaturesGrid';
 import { IconCricketBall } from '../components/icons/SvgIcons';
@@ -24,6 +25,7 @@ export default function LandingPage() {
         </header>
 
         <HeroSection />
+        <RecentMatches />
         <StatsBar />
         <FeaturesGrid />
         
