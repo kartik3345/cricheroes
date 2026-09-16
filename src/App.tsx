@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import ScorecardApp from './pages/ScorecardApp';
 import PreLoader from './components/layout/PreLoader';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <>
+    <ErrorBoundary>
       {loading && <PreLoader onFinish={() => setLoading(false)} />}
       
       {!loading && (
@@ -19,6 +20,6 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       )}
-    </>
+    </ErrorBoundary>
   );
 }
